@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bloco De Notas</string>
+    <string name="app_name">Notepad</string>
     <string name="action_settings">Settings</string>
     <string name="share">Share</string>
     <string name="hint_EditTextMainNote">Escreva suas ideias aqui</string>
