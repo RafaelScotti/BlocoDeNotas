@@ -14,6 +14,7 @@
             android:inputType="textMultiLine|textImeMultiLine"
             android:gravity="start"
             android:ems="10"
+
             android:id="@+id/editTextMainNote" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"
@@ -21,5 +22,7 @@
             style="@style/Widget.AppCompat.EditText" android:lineSpacingExtra="8sp"
             android:hint="@string/hint_EditTextMainNote" android:textSize="24sp" android:fontFamily="@font/muli_light"
             android:capitalize="none" android:outlineProvider="none" android:verticalScrollbarPosition="right"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" android:saveEnabled="true"
+            android:background="#FFEA00" android:autoLink="web"/>
+
 </android.support.constraint.ConstraintLayout>
