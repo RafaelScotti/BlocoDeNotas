@@ -4,23 +4,37 @@ import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.EditText
+import android.widget.Toast
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import java.io.OutputStreamWriter
+
+import java.io.BufferedReader
+import java.io.FileInputStream
+import java.io.InputStreamReader
+
 
 class MainActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        loadFile()
+
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+            saveFile()
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -38,4 +52,30 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    fun saveFile ( ) {
+        val FILENAME = "hello_file"
+        val string = editTextMainNote.text.toString()
+
+        val fos = openFileOutput(FILENAME, Context.MODE_PRIVATE)
+        fos.write(string.toByteArray())
+        fos.close()
+    }
+
+    fun loadFile () {
+
+        var fileInputStream: FileInputStream? = null
+        fileInputStream = openFileInput("hello_file")
+        var inputStreamReader: InputStreamReader = InputStreamReader(fileInputStream)
+        val bufferedReader: BufferedReader = BufferedReader(inputStreamReader)
+        val stringBuilder: StringBuilder = StringBuilder()
+        var text: String? = null
+        while ({ text = bufferedReader.readLine(); text }() != null) {
+            stringBuilder.append(text)
+        }
+        //Displaying data on EditText
+        editTextMainNote.setText(stringBuilder.toString()).toString()
+
+    }
+
 }
