@@ -3,6 +3,7 @@ package com.zanella.blocodenotas
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log
 import android.view.Menu
@@ -30,11 +31,26 @@ class MainActivity : AppCompatActivity() {
 
         loadFile()
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-            saveFile()
-        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        saveFile()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        saveFile()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        saveFile()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        saveFile()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -66,15 +82,16 @@ class MainActivity : AppCompatActivity() {
 
         var fileInputStream: FileInputStream? = null
         fileInputStream = openFileInput("hello_file")
-        var inputStreamReader: InputStreamReader = InputStreamReader(fileInputStream)
+        val inputStreamReader: InputStreamReader = InputStreamReader(fileInputStream)
         val bufferedReader: BufferedReader = BufferedReader(inputStreamReader)
         val stringBuilder: StringBuilder = StringBuilder()
         var text: String? = null
         while ({ text = bufferedReader.readLine(); text }() != null) {
-            stringBuilder.append(text)
+            stringBuilder.appendln(text)
         }
         //Displaying data on EditText
         editTextMainNote.setText(stringBuilder.toString()).toString()
+        editTextMainNote.setSelection(editTextMainNote.text.length)
 
     }
 
